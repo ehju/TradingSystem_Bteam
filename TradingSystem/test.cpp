@@ -76,3 +76,29 @@ TEST(GETPRICETEST, CheckGetPriceReturnValue) {
 	int ret = app.getPrice(code);
 	EXPECT_EQ(ret,1000);
 }
+
+TEST(CoreFunction, buyNiceTiming_CallGetPriceThreeTimes) {
+	NiceMock<MockDriver> mock;
+	std::string code = "code";
+	int totalPrice = 10000;
+	int price = 1000;
+	int amount = 1;
+	AutoTradingSystem app{ &mock };
+	EXPECT_CALL(mock, getPrice(code))
+		.Times(3);
+
+	app.buyNiceTiming(code, totalPrice)
+}
+
+TEST(CoreFunction, sellNiceTiming_CallGetPriceThreeTimes) {
+	NiceMock<MockDriver> mock;
+	std::string code = "code";
+	int totalPrice = 10000;
+	int price = 1000;
+	int amount = 1;
+	AutoTradingSystem app{ &mock };
+	EXPECT_CALL(mock, getPrice(code))
+		.Times(3);
+
+	app.sellNiceTiming(code, totalPrice)
+}
