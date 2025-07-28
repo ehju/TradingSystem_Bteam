@@ -120,3 +120,53 @@ TEST_F(TradeItem, DISABLE_sellNiceTiming_CallGetPriceThreeTimes) {
 
 	app.sellNiceTiming(code, totalPrice);
 }
+
+
+
+TEST_F(TradeItem, buyNiceTiming_SUCCESS) {
+	int totalPrice = 10000;
+	int myTotalAccount = 20000;
+	int price = 1000;
+	int amount = 1;
+	AutoTradingSystem app{ &mock };
+
+	app.setTotalAccount(myTotalAccount); 
+
+	EXPECT_CALL(mock, getPrice(code))
+		.Times(3)
+		.WillOnce(Return(1000))
+		.WillOnce(Return(2000))
+		.WillOnce(Return(3000)); // rising
+
+
+	app.buyNiceTiming(code, totalPrice); // buy 3000 *3 stock
+
+	int expectedStockCount = 3;
+	int expectedRemainAccount = 11000;
+	EXPECT_EQ(expectedStockCount, app.getMyStock(code));
+	EXPECT_EQ(expectedRemainAccount, app.getTotalAccount());
+}
+
+TEST_F(TradeItem, buyNiceTiming_FAIL) {
+	int totalPrice = 10000;
+	int myTotalAccount = 20000;
+	int price = 1000;
+	int amount = 1;
+	AutoTradingSystem app{ &mock };
+
+	app.setTotalAccount(myTotalAccount);
+
+	EXPECT_CALL(mock, getPrice(code))
+		.Times(3)
+		.WillOnce(Return(1000))
+		.WillOnce(Return(3000))
+		.WillOnce(Return(1000)); // fail
+
+
+	app.buyNiceTiming(code, totalPrice); // buy nothing
+
+	int expectedStockCount = 0;
+	int expectedRemainAccount = 20000;
+	EXPECT_EQ(expectedStockCount, app.getMyStock(code));
+	EXPECT_EQ(expectedRemainAccount, app.getTotalAccount());
+}
