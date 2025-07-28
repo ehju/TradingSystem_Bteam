@@ -29,7 +29,9 @@ TEST_F(TradeItem, CallApiTest_LOGIN) {
 		.Times(1);
 
 	app.login(id, password);
+	EXPECT_EQ(true, app.isLoggedin());
 }
+
 
 TEST_F(TradeItem, CallApiTest_BUY) {
 
