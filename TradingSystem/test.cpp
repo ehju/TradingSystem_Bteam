@@ -31,9 +31,9 @@ TEST(BUYTEST, TC1) {
 	int price = 1000;
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
-	EXPECT_CALL(mock, buy(std::string code, int price, int amount))
+	EXPECT_CALL(mock, buy( code, price, amount))
 		.Times(1);
-	app.buy(std::string code, int price, int amount);
+	app.buy(code, price, amount);
 }
 
 TEST(SELLTEST, TC1) {
@@ -42,9 +42,9 @@ TEST(SELLTEST, TC1) {
 	int price = 1000;
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
-	EXPECT_CALL(mock, sell(std::string code, int price, int amount))
+	EXPECT_CALL(mock, sell(code, price, amount))
 		.Times(1);
-	app.sell(std::string code, int price, int amount);
+	app.sell(code, price, amount);
 }
 
 TEST(GETPRICETEST, TC1) {
@@ -53,9 +53,9 @@ TEST(GETPRICETEST, TC1) {
 	int price = 1000;
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
-	EXPECT_CALL(mock, getPrice(std::string code))
+	EXPECT_CALL(mock, getPrice(code))
 		.Times(1)
 		.WillRepeatedly(Return(10));
 
-	int ret = app.getPrice(std::string code);
+	int ret = app.getPrice(code);
 }
