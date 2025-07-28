@@ -96,25 +96,27 @@ TEST_F(TradeItem, getMyStockCount) {
 	EXPECT_EQ(3, app.getMyStock(code)); // check if 3 stock is in my account
 }
 
+TEST_F(TradeItem, buyNiceTiming_CallGetPriceThreeTimes) {
+	int totalPrice = 10000;
+	int price = 1000;
+	int amount = 1;
+	AutoTradingSystem app{ &mock };
+	EXPECT_CALL(mock, getPrice(code))
+		.Times(3)
+		.WillOnce(Return(1))
+		.WillOnce(Return(2))
+		.WillOnce(Return(3));
 
-//TEST_F(TradeItem, buyNiceTiming_CallGetPriceThreeTimes) {
-//	int totalPrice = 10000;
-//	int price = 1000;
-//	int amount = 1;
-//	AutoTradingSystem app{ &mock };
-//	EXPECT_CALL(mock, getPrice(code))
-//		.Times(3);
-//
-//	app.buyNiceTiming(code, totalPrice);
-//}
-//
-//TEST_F(TradeItem, sellNiceTiming_CallGetPriceThreeTimes) {
-//	int totalPrice = 10000;
-//	int price = 1000;
-//	int amount = 1;
-//	AutoTradingSystem app{ &mock };
-//	EXPECT_CALL(mock, getPrice(code))
-//		.Times(3);
-//
-//	app.sellNiceTiming(code, totalPrice);
-//}
+	app.buyNiceTiming(code, totalPrice);
+}
+
+TEST_F(TradeItem, DISABLE_sellNiceTiming_CallGetPriceThreeTimes) {
+	int totalPrice = 10000;
+	int price = 1000;
+	int amount = 1;
+	AutoTradingSystem app{ &mock };
+	EXPECT_CALL(mock, getPrice(code))
+		.Times(3);
+
+	app.sellNiceTiming(code, totalPrice);
+}
