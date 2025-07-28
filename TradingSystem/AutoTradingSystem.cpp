@@ -23,6 +23,7 @@ public:
 
 	int getPrice(std::string code) {
 		return brocker->getPrice(code);
+
 	}
 
 	void sellNiceTiming(std::string code, int amount) {
