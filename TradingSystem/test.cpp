@@ -81,6 +81,8 @@ TEST_F(TradeItem, getSetTotalAccountMoney) {
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
 
+	EXPECT_CALL(mock, getPrice(code))
+		.Times(0);
 
 	app.setTotalAccount(myTotalAccount);
 	EXPECT_EQ(myTotalAccount, app.getTotalAccount());
