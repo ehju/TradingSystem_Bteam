@@ -1,5 +1,5 @@
-
 #include "gmock/gmock.h"
+#include "AutoTradingSystem.cpp"
 using namespace testing;
 
 TEST(TS1, TC2) {
