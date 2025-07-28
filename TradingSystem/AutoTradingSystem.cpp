@@ -16,6 +16,10 @@ public:
 		return;
 	}
 
+	int getPrice(std::string code) {
+		return -1;
+	}
+
 private:
 	IStockerBrocker* brocker;
 };
