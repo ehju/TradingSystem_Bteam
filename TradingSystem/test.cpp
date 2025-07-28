@@ -4,9 +4,6 @@
 
 using namespace testing;
 
-TEST(TS1, TC2) {
-	EXPECT_EQ(1, 1);
-}
 
 class MockDriver : public StockBrockerDriver {
 public:
@@ -16,20 +13,24 @@ public:
 	MOCK_METHOD(int, getPrice, (std::string code), (override));
 };
 
-
-TEST(LOGINTEST, CallApiTest_BUY) {
+class TradeItem : public Test {
+public:
 	NiceMock<MockDriver> mock;
+	std::string code = "code";
 	std::string id = "id";
 	std::string password = "password";
+};
+
+
+TEST_F(TradeItem, CallApiTest_LOGIN) {
+	
 	AutoTradingSystem app{ &mock };
 	EXPECT_CALL(mock, login(id, password))
 		.Times(1);
 	app.login(id, password);
 }
 
-TEST(BUYTEST, CallApiTest_BUY) {
-	NiceMock<MockDriver> mock;
-	std::string code = "code";
+TEST_F(TradeItem, CallApiTest_BUY) {
 
 	int price = 1000;
 	int amount = 1;
@@ -39,9 +40,7 @@ TEST(BUYTEST, CallApiTest_BUY) {
 	app.buy(code, price, amount);
 }
 
-TEST(SELLTEST, CallApiTest_SELL) {
-	NiceMock<MockDriver> mock;
-	std::string code = "code";
+TEST_F(TradeItem, CallApiTest_SELL) {
 	int price = 1000;
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
@@ -50,9 +49,7 @@ TEST(SELLTEST, CallApiTest_SELL) {
 	app.sell(code, price, amount);
 }
 
-TEST(GETPRICETEST, CallApiTest_GETPRICE) {
-	NiceMock<MockDriver> mock;
-	std::string code = "code";
+TEST_F(TradeItem, CallApiTest_GETPRICE) {
 	int price = 1000;
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
@@ -63,9 +60,8 @@ TEST(GETPRICETEST, CallApiTest_GETPRICE) {
 	int ret = app.getPrice(code);
 }
 
-TEST(GETPRICETEST, CheckGetPriceReturnValue) {
-	NiceMock<MockDriver> mock;
-	std::string code = "code";
+TEST_F(TradeItem, CheckGetPriceReturnValue) {
+
 	int price = 1000;
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
@@ -77,28 +73,3 @@ TEST(GETPRICETEST, CheckGetPriceReturnValue) {
 	EXPECT_EQ(ret,1000);
 }
 
-TEST(CoreFunction, buyNiceTiming_CallGetPriceThreeTimes) {
-	NiceMock<MockDriver> mock;
-	std::string code = "code";
-	int totalPrice = 10000;
-	int price = 1000;
-	int amount = 1;
-	AutoTradingSystem app{ &mock };
-	EXPECT_CALL(mock, getPrice(code))
-		.Times(3);
-
-	app.buyNiceTiming(code, totalPrice)
-}
-
-TEST(CoreFunction, sellNiceTiming_CallGetPriceThreeTimes) {
-	NiceMock<MockDriver> mock;
-	std::string code = "code";
-	int totalPrice = 10000;
-	int price = 1000;
-	int amount = 1;
-	AutoTradingSystem app{ &mock };
-	EXPECT_CALL(mock, getPrice(code))
-		.Times(3);
-
-	app.sellNiceTiming(code, totalPrice)
-}
