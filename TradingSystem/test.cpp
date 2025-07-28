@@ -42,6 +42,8 @@ TEST_F(TradeItem, CallApiTest_BUY) {
 	int price = 1000;
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
+	app.setTotalAccount(2000);
+
 	EXPECT_CALL(mock, buy( code, price, amount))
 		.Times(1);
 	app.buy(code, price, amount);
@@ -98,6 +100,7 @@ TEST_F(TradeItem, getMyStockCount) {
 	int price = 1000;
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
+	app.setTotalAccount(myTotalAccount);
 
 	app.buy(code, 1000, 3); // buy 3 stock
 	EXPECT_EQ(3, app.getMyStock(code)); // check if 3 stock is in my account
@@ -108,6 +111,8 @@ TEST_F(TradeItem, buyNiceTiming_CallGetPriceThreeTimes) {
 	int price = 1000;
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
+	app.setTotalAccount(totalPrice);
+
 	EXPECT_CALL(mock, getPrice(code))
 		.Times(3)
 		.WillOnce(Return(1))
@@ -185,7 +190,8 @@ TEST_F(TradeItem, CallApiTest_BUYFAIL) {
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
 	app.setTotalAccount(0);
-	
+	EXPECT_CALL(mock, buy(code, price, amount))
+		.Times(0);
 	EXPECT_THROW(app.buy(code, price, amount), std::exception);
 }
 
