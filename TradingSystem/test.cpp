@@ -83,7 +83,7 @@ TEST_F(TradeItem, getSetTotalAccountMoney) {
 
 
 	app.setTotalAccount(myTotalAccount);
-	EXPECT_EQ(myTotalAccount, app.getTotalAccount(code, totalPrice));
+	EXPECT_EQ(myTotalAccount, app.getTotalAccount());
 }
 
 TEST_F(TradeItem, getMyStockCount) {
