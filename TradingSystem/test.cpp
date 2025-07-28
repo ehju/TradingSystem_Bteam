@@ -27,9 +27,10 @@ TEST_F(TradeItem, CallApiTest_LOGIN) {
 	AutoTradingSystem app{ &mock };
 	EXPECT_CALL(mock, login(id, password))
 		.Times(1);
-
 	app.login(id, password);
+	EXPECT_EQ(true, app.isLoggedin());
 }
+
 
 TEST_F(TradeItem, CallApiTest_BUY) {
 
@@ -72,6 +73,27 @@ TEST_F(TradeItem, CheckGetPriceReturnValue) {
 
 	int ret = app.getPrice(code);
 	EXPECT_EQ(ret,1000);
+}
+
+TEST_F(TradeItem, getSetTotalAccountMoney) {
+	int myTotalAccount = 20000;
+	int price = 1000;
+	int amount = 1;
+	AutoTradingSystem app{ &mock };
+
+
+	app.setTotalAccount(myTotalAccount);
+	EXPECT_EQ(myTotalAccount, app.getTotalAccount(code, totalPrice));
+}
+
+TEST_F(TradeItem, getMyStockCount) {
+	int myTotalAccount = 20000;
+	int price = 1000;
+	int amount = 1;
+	AutoTradingSystem app{ &mock };
+
+	app.buy(code, 1000, 3); // buy 3 stock
+	EXPECT_EQ(3, app.getMyStock(code)); // check if 3 stock is in my account
 }
 
 TEST_F(TradeItem, buyNiceTiming_CallGetPriceThreeTimes) {
