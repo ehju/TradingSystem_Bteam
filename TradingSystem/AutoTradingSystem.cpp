@@ -42,11 +42,17 @@ public:
 	}
 
 	void sellNiceTiming(std::string code, int amount) {
-		int current_price = brocker->getPrice(code);
-		for (int i = 0; i < 2; ++i) {
-			delay(200);
-			current_price = brocker->getPrice(code);
+		int sellPrice = 0;
+		int flag = isSellCondition(code, sellPrice);
+		if (amount > getMyStock(code)) {
+			throw(std::exception("You don't have enough amount"));
 		}
+		if (flag) {
+
+			sell(code, sellPrice, amount);
+		}
+
+
 	}
 
 	void buyNiceTiming(std::string code, int totalPrice) {
@@ -103,6 +109,28 @@ private:
 		}
 		buyPrice = prevPrice;
 		return true;
+	}
+
+	bool isSellCondition(const std::string& code, int& sellPrice)
+	{
+		int prevPrice = getPrice(code);
+		bool decreased = true;
+		for (int i = 0; i < 2; i++) {
+			delay(200);
+			int currPrice = getPrice(code);
+			if (currPrice >= prevPrice) {
+				decreased = false;
+			}
+			else {
+				prevPrice = currPrice;
+			}
+		}
+		if (decreased) {
+			sellPrice = prevPrice;
+		} else {
+			sellPrice = -1;
+		}
+		return decreased;
 	}
 
 	IStockerBrocker* brocker;
