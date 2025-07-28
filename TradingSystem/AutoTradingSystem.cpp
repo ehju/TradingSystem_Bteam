@@ -4,6 +4,7 @@
 #include <thread>
 #include <chrono>
 #include <map>
+#include <stdexcept>
 
 class AutoTradingSystem {
 public:
@@ -18,6 +19,11 @@ public:
 		return brocker->isLoggedin();
 	}
 	void buy(const std::string& code, int price, int amount) {
+
+		if (price * amount > deposit)
+		{
+			throw std::exception("You don't have enough money");
+		}
 
 		brocker->buy(code, price, amount);
 		myStock[code] += amount;
