@@ -57,6 +57,16 @@ public:
 		return;
 	}
 
+	void setTotalAccount(int money)
+	{
+		deposit = money;
+	}
+
+	int getTotalAccount()
+	{
+		return deposit;
+	}
+
 private:
 	void delay(int ms) {
 		for (int i = 0; i < ms; ++i) {
@@ -64,4 +74,5 @@ private:
 		}
 	}
 	IStockerBrocker* brocker;
+	int deposit{ 0 };
 };
