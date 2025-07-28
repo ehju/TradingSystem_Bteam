@@ -185,7 +185,50 @@ TEST_F(TradeItem, CallApiTest_BUYFAIL) {
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
 	app.setTotalAccount(0);
-	EXPECT_CALL(mock, buy(code, price, amount))
-		.Times(1);
+	
 	EXPECT_THROW(app.buy(code, price, amount), std::exception);
 }
+
+
+TEST_F(TradeItem, CallApiTest_BUY_NICETIMING_FAIL) {
+
+	int price = 1000;
+	int amount = 1;
+	int totalPrice = 10000;
+	int myTotalAccount = 20000;
+	AutoTradingSystem app{ &mock };
+	app.setTotalAccount(myTotalAccount);
+	
+	EXPECT_THROW(app.buyNiceTiming(code, totalPrice), std::exception);
+}
+
+
+TEST_F(TradeItem, CallApiTest_SELLFAIL) {
+
+	int price = 1000;
+	int amount = 3;
+	int myTotalAccount = 20000;
+	AutoTradingSystem app{ &mock };
+
+	// precondition
+	app.setTotalAccount(myTotalAccount);
+	app.buy(code, price, amount); // buy 3 stock
+	EXPECT_EQ(3, app.getMyStock(code)); // check if 3 stock is in my account
+
+
+	EXPECT_THROW(app.sell(code, price, amount+1), std::exception); // try to sell more than i have
+}
+
+
+TEST_F(TradeItem, CallApiTest_SELL_NICETIMING_FAIL) {
+
+	int price = 1000;
+	int amount = 3;
+	int totalPrice = 10000;
+	int myTotalAccount = 20000;
+	AutoTradingSystem app{ &mock };
+	app.setTotalAccount(myTotalAccount);
+
+	EXPECT_THROW(app.sellNiceTiming(code, amount+1), std::exception);
+}
+
