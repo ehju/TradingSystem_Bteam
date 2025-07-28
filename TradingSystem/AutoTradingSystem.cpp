@@ -32,6 +32,8 @@ public:
 	}
 
 	void sell(std::string code, int price, int amount) {
+		if (hasStock(code) && myStock[code] < amount)
+			throw std::exception("Not enough amout to sell\n");
 		brocker->sell(code,price, amount);
 		return;
 	}
