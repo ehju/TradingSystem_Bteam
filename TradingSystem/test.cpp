@@ -117,7 +117,7 @@ TEST_F(TradeItem, buyNiceTiming_CallGetPriceThreeTimes) {
 	app.buyNiceTiming(code, totalPrice);
 }
 
-TEST_F(TradeItem, DISABLE_sellNiceTiming_CallGetPriceThreeTimes) {
+TEST_F(TradeItem, sellNiceTiming_CallGetPriceThreeTimes) {
 	int totalPrice = 10000;
 	int price = 1000;
 	int amount = 1;
