@@ -15,6 +15,7 @@ public:
 	}
 
 	void sell(std::string code, int price, int amount) {
+		brocker->sell(code,price, amount);
 		return;
 	}
 
