@@ -22,7 +22,7 @@ public:
 	}
 
 	int getPrice(std::string code) {
-		return -1;
+		return brocker->getPrice(code);
 	}
 
 private:
