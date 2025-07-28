@@ -9,19 +9,23 @@ public:
 	AutoTradingSystem(IStockerBrocker* brocker) : brocker{ brocker } {}
 	
 	void login(std::string id, std::string password) {
+		brocker->login(id, password);
 		return;
 	}
 
 	void buy(const std::string& code, int price, int amount) {
+
+		brocker->buy(code, price, amount);
 		return;
 	}
 
 	void sell(std::string code, int price, int amount) {
+		brocker->sell(code,price, amount);
 		return;
 	}
 
 	int getPrice(std::string code) {
-		return -1;
+		return brocker->getPrice(code);
 	}
 
 	void buyNiceTiming(std::string code, int totalPrice) {

@@ -27,6 +27,7 @@ TEST_F(TradeItem, CallApiTest_LOGIN) {
 	AutoTradingSystem app{ &mock };
 	EXPECT_CALL(mock, login(id, password))
 		.Times(1);
+
 	app.login(id, password);
 }
 
@@ -97,3 +98,4 @@ TEST_F(TradeItem, DISABLE_sellNiceTiming_CallGetPriceThreeTimes) {
 
 	app.sellNiceTiming(code, totalPrice);
 }
+
