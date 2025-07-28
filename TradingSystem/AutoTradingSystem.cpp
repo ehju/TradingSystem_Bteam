@@ -11,6 +11,8 @@ public:
 	}
 
 	void buy(const std::string& code, int price, int amount) {
+
+		brocker->buy(code, price, amount);
 		return;
 	}
 
