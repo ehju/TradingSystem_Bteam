@@ -11,6 +11,8 @@ public:
 	MOCK_METHOD(void, buy, (std::string code, int price, int amount), (override));
 	MOCK_METHOD(void, sell, (std::string code, int price, int amount), (override));
 	MOCK_METHOD(int, getPrice, (std::string code), (override));
+	MOCK_METHOD(bool, isLoggedin, (), (override));
+
 };
 
 class TradeItem : public Test {
@@ -28,6 +30,9 @@ TEST_F(TradeItem, CallApiTest_LOGIN) {
 	EXPECT_CALL(mock, login(id, password))
 		.Times(1);
 	app.login(id, password);
+
+	EXPECT_CALL(mock, isLoggedin())
+		.WillRepeatedly(Return(true));
 	EXPECT_EQ(true, app.isLoggedin());
 }
 
