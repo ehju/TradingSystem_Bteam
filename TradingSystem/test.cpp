@@ -50,11 +50,15 @@ TEST_F(TradeItem, CallApiTest_BUY) {
 }
 
 TEST_F(TradeItem, CallApiTest_SELL) {
+	int myTotalAccount = 20000;
 	int price = 1000;
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
+
 	EXPECT_CALL(mock, sell(code, price, amount))
 		.Times(1);
+	app.setTotalAccount(myTotalAccount);
+	app.buy(code, 1000, 1);
 	app.sell(code, price, amount);
 }
 
@@ -123,14 +127,19 @@ TEST_F(TradeItem, buyNiceTiming_CallGetPriceThreeTimes) {
 }
 
 TEST_F(TradeItem, sellNiceTiming_CallGetPriceThreeTimes) {
+	int myTotalAccount = 20000;
 	int totalPrice = 10000;
 	int price = 1000;
 	int amount = 1;
 	AutoTradingSystem app{ &mock };
 	EXPECT_CALL(mock, getPrice(code))
-		.Times(3);
-
-	app.sellNiceTiming(code, totalPrice);
+		.Times(3)
+		.WillOnce(Return(2000))
+		.WillOnce(Return(1500))
+		.WillRepeatedly(Return(1000)); // falling
+	app.setTotalAccount(myTotalAccount);
+	app.buy(code, 1000, 1);
+	app.sellNiceTiming(code, amount);
 }
 
 

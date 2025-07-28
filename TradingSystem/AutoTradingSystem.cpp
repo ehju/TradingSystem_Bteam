@@ -32,7 +32,12 @@ public:
 	}
 
 	void sell(std::string code, int price, int amount) {
+		if (amount > getMyStock(code)) {
+			throw(std::exception("You don't have enough amount"));
+		}
 		brocker->sell(code,price, amount);
+		myStock[code] -= amount;
+		deposit += (price * amount);
 		return;
 	}
 
@@ -51,8 +56,6 @@ public:
 
 			sell(code, sellPrice, amount);
 		}
-
-
 	}
 
 	void buyNiceTiming(std::string code, int totalPrice) {
