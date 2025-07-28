@@ -127,7 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AutoTradingSystem.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="StockBrockerDriver.cpp" />
     <ClCompile Include="test.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"> %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
