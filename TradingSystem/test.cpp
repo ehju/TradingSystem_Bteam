@@ -130,7 +130,7 @@ TEST_F(TradeItem, DISABLE_sellNiceTiming_CallGetPriceThreeTimes) {
 
 
 
-TEST_F(TradeItem, DISABLED_buyNiceTiming_SUCCESS) {
+TEST_F(TradeItem, buyNiceTiming_SUCCESS) {
 	int totalPrice = 10000;
 	int myTotalAccount = 20000;
 	int price = 1000;
@@ -154,7 +154,7 @@ TEST_F(TradeItem, DISABLED_buyNiceTiming_SUCCESS) {
 	EXPECT_EQ(expectedRemainAccount, app.getTotalAccount());
 }
 
-TEST_F(TradeItem, DISABLED_buyNiceTiming_FAIL) {
+TEST_F(TradeItem, buyNiceTiming_FAIL) {
 	int totalPrice = 10000;
 	int myTotalAccount = 20000;
 	int price = 1000;

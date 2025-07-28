@@ -21,6 +21,7 @@ public:
 
 		brocker->buy(code, price, amount);
 		myStock[code] += amount;
+		deposit -= (price * amount);
 		return;
 	}
 
