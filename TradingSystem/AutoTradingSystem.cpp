@@ -21,6 +21,7 @@ public:
 
 		brocker->buy(code, price, amount);
 		myStock[code] += amount;
+		deposit -= (price * amount);
 		return;
 	}
 
@@ -43,22 +44,11 @@ public:
 	}
 
 	void buyNiceTiming(std::string code, int totalPrice) {
-		int prevPrice = brocker->getPrice(code);
-		int currPrice;
+		int buyPrice= -1;
 		
-		for (int i = 0; i < 2; i++) {
-			std::this_thread::sleep_for(std::chrono::milliseconds(200));
-			currPrice = brocker->getPrice(code);
-			if (currPrice <= prevPrice) {
-				std::cout << "Not Buying" << std::endl;
-				return;
-			}
-			else {
-				prevPrice = currPrice;
-			}
+		if (isBuyCondition(code, buyPrice)) {
+			buy(code, buyPrice, totalPrice / buyPrice);
 		}
-		
-		buy(code, currPrice, totalPrice / currPrice);
 		return;
 	}
 
@@ -82,15 +72,31 @@ public:
 
 private:
 	void delay(int ms) {
-		for (int i = 0; i < ms; ++i) {
-			for (int j = 0; j < 1000; ++j);
-		}
+		std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 	}
 
 	bool hasStock(std::string code)
 	{
 		auto it = myStock.find(code);
 		return it != myStock.end();
+	}
+
+	bool isBuyCondition(const std::string& code, int& buyPrice)
+	{
+		int prevPrice = getPrice(code);
+
+		for (int i = 0; i < 2; i++) {
+			delay(200);
+			int currPrice = getPrice(code);
+			if (currPrice <= prevPrice) {
+				return false;
+			}
+			else {
+				prevPrice = currPrice;
+			}
+		}
+		buyPrice = prevPrice;
+		return true;
 	}
 
 	IStockerBrocker* brocker;
