@@ -23,8 +23,22 @@ public:
 
 	int getPrice(std::string code) {
 		return brocker->getPrice(code);
+
+	}
+
+	void sellNiceTiming(std::string code, int amount) {
+		int current_price = brocker->getPrice(code);
+		for (int i = 0; i < 2; ++i) {
+			delay(200);
+			current_price = brocker->getPrice(code);
+		}
 	}
 
 private:
+	void delay(int ms) {
+		for (int i = 0; i < ms; ++i) {
+			for (int j = 0; j < 1000; ++j);
+		}
+	}
 	IStockerBrocker* brocker;
 };
