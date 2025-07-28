@@ -69,7 +69,7 @@ public:
 		else {
 			return 0;
 		}
-
+	}
 	void setTotalAccount(int money)
 	{
 		deposit = money;
