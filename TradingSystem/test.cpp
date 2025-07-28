@@ -229,6 +229,6 @@ TEST_F(TradeItem, CallApiTest_SELL_NICETIMING_FAIL) {
 	AutoTradingSystem app{ &mock };
 	app.setTotalAccount(myTotalAccount);
 
-	EXPECT_THROW(app.buyNiceTiming(code, amount+1), std::exception);
+	EXPECT_THROW(app.sellNiceTiming(code, amount+1), std::exception);
 }
 
