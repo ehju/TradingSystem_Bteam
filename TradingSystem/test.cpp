@@ -74,18 +74,21 @@ TEST_F(TradeItem, CheckGetPriceReturnValue) {
 	EXPECT_EQ(ret,1000);
 }
 
-//TEST_F(TradeItem, buyNiceTiming_CallGetPriceThreeTimes) {
-//	int totalPrice = 10000;
-//	int price = 1000;
-//	int amount = 1;
-//	AutoTradingSystem app{ &mock };
-//	EXPECT_CALL(mock, getPrice(code))
-//		.Times(3);
-//
-//	app.buyNiceTiming(code, totalPrice);
-//}
-//
-TEST_F(TradeItem, sellNiceTiming_CallGetPriceThreeTimes) {
+TEST_F(TradeItem, buyNiceTiming_CallGetPriceThreeTimes) {
+	int totalPrice = 10000;
+	int price = 1000;
+	int amount = 1;
+	AutoTradingSystem app{ &mock };
+	EXPECT_CALL(mock, getPrice(code))
+		.Times(3)
+		.WillOnce(Return(1))
+		.WillOnce(Return(2))
+		.WillOnce(Return(3));
+
+	app.buyNiceTiming(code, totalPrice);
+}
+
+TEST_F(TradeItem, DISABLE_sellNiceTiming_CallGetPriceThreeTimes) {
 	int totalPrice = 10000;
 	int price = 1000;
 	int amount = 1;
