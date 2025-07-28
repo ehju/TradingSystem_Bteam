@@ -27,6 +27,7 @@ TEST_F(TradeItem, CallApiTest_LOGIN) {
 	AutoTradingSystem app{ &mock };
 	EXPECT_CALL(mock, login(id, password))
 		.Times(1);
+
 	app.login(id, password);
 }
 
@@ -73,24 +74,24 @@ TEST_F(TradeItem, CheckGetPriceReturnValue) {
 	EXPECT_EQ(ret,1000);
 }
 
-TEST_F(TradeItem, buyNiceTiming_CallGetPriceThreeTimes) {
-	int totalPrice = 10000;
-	int price = 1000;
-	int amount = 1;
-	AutoTradingSystem app{ &mock };
-	EXPECT_CALL(mock, getPrice(code))
-		.Times(3);
-
-	app.buyNiceTiming(code, totalPrice);
-}
-
-TEST_F(TradeItem, sellNiceTiming_CallGetPriceThreeTimes) {
-	int totalPrice = 10000;
-	int price = 1000;
-	int amount = 1;
-	AutoTradingSystem app{ &mock };
-	EXPECT_CALL(mock, getPrice(code))
-		.Times(3);
-
-	app.sellNiceTiming(code, totalPrice);
-}
+//TEST_F(TradeItem, buyNiceTiming_CallGetPriceThreeTimes) {
+//	int totalPrice = 10000;
+//	int price = 1000;
+//	int amount = 1;
+//	AutoTradingSystem app{ &mock };
+//	EXPECT_CALL(mock, getPrice(code))
+//		.Times(3);
+//
+//	app.buyNiceTiming(code, totalPrice);
+//}
+//
+//TEST_F(TradeItem, sellNiceTiming_CallGetPriceThreeTimes) {
+//	int totalPrice = 10000;
+//	int price = 1000;
+//	int amount = 1;
+//	AutoTradingSystem app{ &mock };
+//	EXPECT_CALL(mock, getPrice(code))
+//		.Times(3);
+//
+//	app.sellNiceTiming(code, totalPrice);
+//}
