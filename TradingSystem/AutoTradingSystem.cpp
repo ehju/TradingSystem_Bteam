@@ -66,6 +66,15 @@ public:
 		else {
 			return 0;
 		}
+
+	void setTotalAccount(int money)
+	{
+		deposit = money;
+	}
+
+	int getTotalAccount()
+	{
+		return deposit;
 	}
 
 private:
@@ -83,4 +92,5 @@ private:
 
 	IStockerBrocker* brocker;
 	std::map<std::string, int> myStock;
+	int deposit{ 0 };
 };
