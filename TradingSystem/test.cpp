@@ -46,3 +46,16 @@ TEST(SELLTEST, TC1) {
 		.Times(1);
 	app.sell(std::string code, int price, int amount);
 }
+
+TEST(GETPRICETEST, TC1) {
+	NiceMock<MockDriver> mock;
+	std::string code = "code";
+	int price = 1000;
+	int amount = 1;
+	AutoTradingSystem app{ &mock };
+	EXPECT_CALL(mock, getPrice(std::string code))
+		.Times(1)
+		.WillRepeatedly(Return(10));
+
+	int ret = app.getPrice(std::string code);
+}
