@@ -9,12 +9,16 @@ public:
 	virtual void buy(std::string code, int price, int amount) = 0;
 	virtual void sell(std::string code, int price, int amount) = 0;
 	virtual int getPrice(std::string code) = 0;
+	virtual bool isLoggedin() = 0;
 };
 
 class StockBrockerDriver : public IStockerBrocker {
 public:
 	void login(std::string id, std::string password) override {
 	
+	}
+	bool isLoggedin(void) override{
+		return true;
 	}
 
 	void buy(std::string code, int price, int amount) override {
