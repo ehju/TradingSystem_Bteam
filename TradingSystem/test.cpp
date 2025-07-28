@@ -177,3 +177,15 @@ TEST_F(TradeItem, buyNiceTiming_FAIL) {
 	EXPECT_EQ(expectedStockCount, app.getMyStock(code));
 	EXPECT_EQ(expectedRemainAccount, app.getTotalAccount());
 }
+
+
+TEST_F(TradeItem, CallApiTest_BUYFAIL) {
+
+	int price = 1000;
+	int amount = 1;
+	AutoTradingSystem app{ &mock };
+	app.setTotalAccount(0);
+	EXPECT_CALL(mock, buy(code, price, amount))
+		.Times(1);
+	EXPECT_THROW(app.buy(code, price, amount), std::exception);
+}
