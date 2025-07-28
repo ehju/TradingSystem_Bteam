@@ -1,6 +1,7 @@
-
 #include "gmock/gmock.h"
 #include "StockBrockerDriver.cpp"
+#include "AutoTradingSystem.cpp"
+
 using namespace testing;
 
 TEST(TS1, TC2) {
