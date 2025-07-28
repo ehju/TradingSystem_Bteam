@@ -98,4 +98,3 @@ TEST_F(TradeItem, DISABLE_sellNiceTiming_CallGetPriceThreeTimes) {
 
 	app.sellNiceTiming(code, totalPrice);
 }
-
