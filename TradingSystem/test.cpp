@@ -9,9 +9,9 @@ TEST(TS1, TC2) {
 class MockDriver : public StockBrockerDriver {
 public:
 	MOCK_METHOD(void, login, (std::string id, std::string password), (override));
-	MOCK_METHOD(void, buy, (std:string code, int price, int amount), (override));
-	MOCK_METHOD(void, sell, (std:string code, int price, int amount), (override));
-	MOCK_METHOD(int, getPrice, (std:string code), (override));
+	MOCK_METHOD(void, buy, (std::string code, int price, int amount), (override));
+	MOCK_METHOD(void, sell, (std::string code, int price, int amount), (override));
+	MOCK_METHOD(int, getPrice, (std::string code), (override));
 };
 
 TEST(LOGINTEST, TC1) {
@@ -24,14 +24,25 @@ TEST(LOGINTEST, TC1) {
 	app.login(id, password);
 }
 
-
 TEST(BUYTEST, TC1) {
 	NiceMock<MockDriver> mock;
-	std::string id = "code";
-	std::string password = "password";
+	std::string code = "code";
+
+	int price = 1000;
+	int amount = 1;
 	AutoTradingSystem app{ &mock };
-	EXPECT_CALL(mock, buy(int code, int price, int amount))
+	EXPECT_CALL(mock, buy(std::string code, int price, int amount))
 		.Times(1);
-	app.buy(id, password);
+	app.buy(std::string code, int price, int amount);
 }
 
+TEST(SELLTEST, TC1) {
+	NiceMock<MockDriver> mock;
+	std::string code = "code";
+	int price = 1000;
+	int amount = 1;
+	AutoTradingSystem app{ &mock };
+	EXPECT_CALL(mock, sell(std::string code, int price, int amount))
+		.Times(1);
+	app.sell(std::string code, int price, int amount);
+}
