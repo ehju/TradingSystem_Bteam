@@ -3,6 +3,7 @@
 #include "StockBrockerDriver.cpp"
 #include <thread>
 #include <chrono>
+#include <map>
 
 class AutoTradingSystem {
 public:
@@ -19,6 +20,7 @@ public:
 	void buy(const std::string& code, int price, int amount) {
 
 		brocker->buy(code, price, amount);
+		myStock[code] += amount;
 		return;
 	}
 
@@ -60,6 +62,14 @@ public:
 		return;
 	}
 
+	int getMyStock(std::string code) {
+		if (hasStock(code)) {
+			return myStock[code];
+		}
+		else {
+			return 0;
+		}
+
 	void setTotalAccount(int money)
 	{
 		deposit = money;
@@ -76,6 +86,14 @@ private:
 			for (int j = 0; j < 1000; ++j);
 		}
 	}
+
+	bool hasStock(std::string code)
+	{
+		auto it = myStock.find(code);
+		return it != myStock.end();
+	}
+
 	IStockerBrocker* brocker;
+	std::map<std::string, int> myStock;
 	int deposit{ 0 };
 };
