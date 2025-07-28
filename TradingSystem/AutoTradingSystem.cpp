@@ -1,5 +1,9 @@
 #pragma once
 #include <iostream>
+#include "StockBrockerDriver.cpp"
+#include <thread>
+#include <chrono>
+
 class AutoTradingSystem {
 public:
 	AutoTradingSystem(IStockerBrocker* brocker) : brocker{ brocker } {}
@@ -18,6 +22,26 @@ public:
 
 	int getPrice(std::string code) {
 		return -1;
+	}
+
+	void buyNiceTiming(std::string code, int totalPrice) {
+		int prevPrice = brocker->getPrice(code);
+		int currPrice;
+		
+		for (int i = 0; i < 2; i++) {
+			std::this_thread::sleep_for(std::chrono::milliseconds(200));
+			currPrice = brocker->getPrice(code);
+			if (currPrice <= prevPrice) {
+				std::cout << "Not Buying" << std::endl;
+				return;
+			}
+			else {
+				prevPrice = currPrice;
+			}
+		}
+		
+		buy(code, currPrice, totalPrice / currPrice);
+		return;
 	}
 
 private:
