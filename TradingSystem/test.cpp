@@ -28,7 +28,7 @@ TEST_F(TradeItem, CallApiTest_LOGIN) {
 	EXPECT_CALL(mock, login(id, password))
 		.Times(1);
 	app.login(id, password);
-	//EXPECT_EQ(true, app.isLoggedin());
+	EXPECT_EQ(true, app.isLoggedin());
 }
 
 
